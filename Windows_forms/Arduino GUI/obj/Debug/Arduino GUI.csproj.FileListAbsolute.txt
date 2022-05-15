@@ -1,0 +1,11 @@
+C:\Users\Gabriel\source\repos\Arduino GUI\Arduino GUI\bin\Debug\Arduino GUI.exe.config
+C:\Users\Gabriel\source\repos\Arduino GUI\Arduino GUI\bin\Debug\Arduino GUI.exe
+C:\Users\Gabriel\source\repos\Arduino GUI\Arduino GUI\bin\Debug\Arduino GUI.pdb
+C:\Users\Gabriel\source\repos\Arduino GUI\Arduino GUI\obj\Debug\Arduino GUI.csproj.AssemblyReference.cache
+C:\Users\Gabriel\source\repos\Arduino GUI\Arduino GUI\obj\Debug\Arduino GUI.csproj.SuggestedBindingRedirects.cache
+C:\Users\Gabriel\source\repos\Arduino GUI\Arduino GUI\obj\Debug\Arduino_GUI.Form1.resources
+C:\Users\Gabriel\source\repos\Arduino GUI\Arduino GUI\obj\Debug\Arduino_GUI.Properties.Resources.resources
+C:\Users\Gabriel\source\repos\Arduino GUI\Arduino GUI\obj\Debug\Arduino GUI.csproj.GenerateResource.cache
+C:\Users\Gabriel\source\repos\Arduino GUI\Arduino GUI\obj\Debug\Arduino GUI.csproj.CoreCompileInputs.cache
+C:\Users\Gabriel\source\repos\Arduino GUI\Arduino GUI\obj\Debug\Arduino GUI.exe
+C:\Users\Gabriel\source\repos\Arduino GUI\Arduino GUI\obj\Debug\Arduino GUI.pdb
