@@ -14,8 +14,7 @@ namespace Arduino_GUI
     {
 
         public delegate void d1(string indata);
-        double timeResult = 0.0;
-        bool run_on = false;
+        //private static double timeResult = 0.0;
 
         public Form1()
         {
@@ -26,14 +25,6 @@ namespace Arduino_GUI
         private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
             string indata = serialPort1.ReadLine();
-            if (indata == "run_start")
-            {
-                run_on = true;
-            }
-            else if (indata == "run_end")
-            {
-                run_on = false;
-            }
             d1 writeit = new d1(Write2Form);
             Invoke(writeit,indata);
         }
