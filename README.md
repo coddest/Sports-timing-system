@@ -1,3 +1,3 @@
 # Sports_timing_system
 
-Schematics
+Desktop App written in Windows Presentation Foundation
