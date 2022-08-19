@@ -1,0 +1,16 @@
+C:\Users\Gabriel\source\repos\Sports_timing_WPF\Sports_timing_WPF\bin\Debug\Sports_timing_WPF.exe.config
+C:\Users\Gabriel\source\repos\Sports_timing_WPF\Sports_timing_WPF\bin\Debug\Sports_timing_WPF.exe
+C:\Users\Gabriel\source\repos\Sports_timing_WPF\Sports_timing_WPF\bin\Debug\Sports_timing_WPF.pdb
+C:\Users\Gabriel\source\repos\Sports_timing_WPF\Sports_timing_WPF\obj\Debug\Sports_timing_WPF.csproj.AssemblyReference.cache
+C:\Users\Gabriel\source\repos\Sports_timing_WPF\Sports_timing_WPF\obj\Debug\Sports_timing_WPF.csproj.SuggestedBindingRedirects.cache
+C:\Users\Gabriel\source\repos\Sports_timing_WPF\Sports_timing_WPF\obj\Debug\MainWindow.g.cs
+C:\Users\Gabriel\source\repos\Sports_timing_WPF\Sports_timing_WPF\obj\Debug\App.g.cs
+C:\Users\Gabriel\source\repos\Sports_timing_WPF\Sports_timing_WPF\obj\Debug\Sports_timing_WPF_MarkupCompile.cache
+C:\Users\Gabriel\source\repos\Sports_timing_WPF\Sports_timing_WPF\obj\Debug\Sports_timing_WPF_MarkupCompile.lref
+C:\Users\Gabriel\source\repos\Sports_timing_WPF\Sports_timing_WPF\obj\Debug\MainWindow.baml
+C:\Users\Gabriel\source\repos\Sports_timing_WPF\Sports_timing_WPF\obj\Debug\Sports_timing_WPF.g.resources
+C:\Users\Gabriel\source\repos\Sports_timing_WPF\Sports_timing_WPF\obj\Debug\Sports_timing_WPF.Properties.Resources.resources
+C:\Users\Gabriel\source\repos\Sports_timing_WPF\Sports_timing_WPF\obj\Debug\Sports_timing_WPF.csproj.GenerateResource.cache
+C:\Users\Gabriel\source\repos\Sports_timing_WPF\Sports_timing_WPF\obj\Debug\Sports_timing_WPF.csproj.CoreCompileInputs.cache
+C:\Users\Gabriel\source\repos\Sports_timing_WPF\Sports_timing_WPF\obj\Debug\Sports_timing_WPF.exe
+C:\Users\Gabriel\source\repos\Sports_timing_WPF\Sports_timing_WPF\obj\Debug\Sports_timing_WPF.pdb
