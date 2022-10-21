@@ -8,4 +8,7 @@ void setup() {
 
 void loop() {
   if(digitalRead(start_pin)==input_start && run_on==false){
+    run_on = true;
+    Serial.println("Start");
+  }
 }
