@@ -17,6 +17,7 @@
             "includePath": [
                 "/home/gabriel-pop/.arduino15/packages/arduino/hardware/avr/1.8.5/cores/arduino",
                 "/home/gabriel-pop/.arduino15/packages/arduino/hardware/avr/1.8.5/variants/standard",
+                "/home/gabriel-pop/mySoftware/arduino-1.8.19/libraries/LiquidCrystal/src",
                 "/home/gabriel-pop/.arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/lib/gcc/avr/7.3.0/include",
                 "/home/gabriel-pop/.arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/lib/gcc/avr/7.3.0/include-fixed",
                 "/home/gabriel-pop/.arduino15/packages/arduino/tools/avr-gcc/7.3.0-atmel3.6.1-arduino7/avr/include"

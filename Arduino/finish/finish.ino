@@ -1,3 +1,4 @@
+// variables declarations:
 bool run_on = false; // is the run in progress?
 long int start_time = 1; // start time of run
 long int result_time = 0; // time of run

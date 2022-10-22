@@ -1,6 +1,6 @@
 {
     "port": "/dev/ttyACM0",
     "board": "arduino:avr:uno",
-    "sketch": "Arduino/start/start.ino",
+    "sketch": "Arduino/LCD_version/LCD_version.ino",
     "programmer": "arduino:avrispmkii"
 }
