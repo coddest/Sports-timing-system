@@ -1,4 +1,8 @@
+#include <SoftwareSerial.h>
 #include <LiquidCrystal.h>
+
+// wireless communication setup
+SoftwareSerial HC12(9, 8); // HC-12 TX Pin, HC-12 RX Pin
 
 // initialize the library by associating any needed LCD interface
 // pin with the arduino pin number it is connected to
@@ -19,33 +23,39 @@ void print_ln_lcd(String message, int col=0, int row=0, bool clear=false);
 String ms_to_print(long int ms);
 
 void setup() {
-  pinMode(photo_pin, INPUT_PULLUP);
-  Serial.begin(9600);
+  Serial.begin(9600); // serial port to computer
+  HC12.begin(9600); // serial port to HC-12
   lcd.begin(16, 2);
+  
+  pinMode(photo_pin, INPUT_PULLUP);
   print_ln_lcd("Welcome!", 4, 0, true);
 }
 
 void loop(){
+  if(HC12.available()){
+    String message =HC12.readString();
+    Serial.println(message);
 
-  if(digitalRead(photo_pin)==input_start && run_on==false){
-    start_time = millis(); // save the time when the run started
-    Serial.println("run-started"); // send message to serial monitor that run has started
-    result_time = min_run_length; // set the result time to the minimum run length
-    run_on = true; // set the run_on flag to true
+    if(message=="run-started" && run_on==false){
+      start_time = millis(); // save the time when the run started
+      Serial.println("run-started"); // send message to serial monitor that run has started
+      result_time = min_run_length; // set the result time to the minimum run length
+      run_on = true; // set the run_on flag to true
 
-    if(prev_time != 0)
-    print_ln_lcd(ms_to_print(prev_time), 0, 0, true); // print prev time on LCD
-    delay(min_run_length);
-    
-    while(digitalRead(photo_pin)!=input_start){
-      result_time = millis()-start_time;
-      print_ln_lcd(ms_to_print(result_time), 0, 1); // update time on LCD
+      if(prev_time != 0)
+      print_ln_lcd(ms_to_print(prev_time), 0, 0, true); // print prev time on LCD
+      delay(min_run_length);
+      
+      while(digitalRead(photo_pin)!=input_start){
+        result_time = millis()-start_time;
+        print_ln_lcd(ms_to_print(result_time), 0, 1); // update time on LCD
+      }
+      
+      run_on = false;
+      prev_time = result_time; // save the result time as the previous time for LCD display
+      Serial.println(result_time);
+      delay(min_run_length);
     }
-    
-    run_on = false;
-    prev_time = result_time; // save the result time as the previous time for LCD display
-    Serial.println(result_time);
-    delay(min_run_length);
   }
 
 }
