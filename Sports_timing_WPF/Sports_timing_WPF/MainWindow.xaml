@@ -7,15 +7,9 @@
         mc:Ignorable="d"
         xmlns:ports="clr-namespace:System.IO.Ports;assembly=System"
         Title="Sports timing" Height="450" Width="800">
-
-    <Window.Resources>
-        <ObjectDataProvider ObjectType="{x:Type ports:SerialPort}" MethodName="GetPortNames" x:Key="portNames"/>
-    </Window.Resources>
-
-    <Grid>
-        <ComboBox x:Name="COM" ItemsSource="{Binding Source={StaticResource portNames}}" SelectionChanged="ComboBox_SelectionChanged" HorizontalAlignment="Left" Margin="297,151,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBlock x:Name="Status" HorizontalAlignment="Left" Margin="297,122,0,0" TextWrapping="Wrap" Text="Disconnected" VerticalAlignment="Top"/>
-        <Button x:Name="Disconnect" Content="Disconnect" HorizontalAlignment="Left" Margin="457,153,0,0" VerticalAlignment="Top" Width="80" Click="Disconnect_Click"/>
-        <Button x:Name="Connect" Content="Connect" HorizontalAlignment="Left" Margin="457,123,0,0" VerticalAlignment="Top" Width="80" Click="Connect_Click"/>
-    </Grid>
+    <StackPanel>
+        <ComboBox x:Name="cmbSerialPorts" Grid.Row="0" Grid.Column="0" Margin="10" />
+        <Button Content="Connect" Grid.Row="0" Grid.Column="1" Margin="10" Click="Button_Click" />
+        <TextBox x:Name="txtResponse" Grid.Row="1" Grid.ColumnSpan="2" Margin="10" />
+    </StackPanel>
 </Window>

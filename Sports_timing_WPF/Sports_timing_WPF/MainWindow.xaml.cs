@@ -21,47 +21,33 @@ namespace Sports_timing_WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        SerialPort sp = new SerialPort();
+        SerialPort serialPort;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            // Populate the combo box with a list of available serial ports
+            cmbSerialPorts.ItemsSource = SerialPort.GetPortNames();
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var selectedcombitem = sender as ComboBox;
-            string name = selectedcombitem.SelectedItem as string;
-        }
+            // Get the selected serial port from the combo box
+            string serialPortName = cmbSerialPorts.SelectedItem as string;
 
-        private void Connect_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                string portName = COM.SelectedItem as string;
-                sp.PortName = portName;
-                sp.BaudRate = 9600;
-                sp.Open();
-                Status.Text = "Connected";
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Please give a valid port number or check your connection!");
-            }
-            Console.WriteLine("Skończyłem");
-        }
+            // Open a connection to the serial port
+            serialPort = new SerialPort(serialPortName, 9600);
+            serialPort.Open();
 
-        private void Disconnect_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                sp.Close();
-                Status.Text = "Disconnected";
-            }
-            catch
-            {
-                MessageBox.Show("First connect, then disconnect!");
-            }
+            // Send a message to the Arduino
+            serialPort.WriteLine("Hello, Arduino!");
+
+            // Read the response from the Arduino
+            string response = serialPort.ReadLine();
+
+            // Display the response in the text box
+            txtResponse.Text = response;
         }
     }
 }
