@@ -5,10 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GPT_test"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <StackPanel>
-        <ComboBox x:Name="cmbSerialPorts" Grid.Row="0" Grid.Column="0" Margin="10" />
-        <Button Content="Connect" Grid.Row="0" Grid.Column="1" Margin="10" Click="Button_Click" />
-        <TextBox x:Name="txtResponse" Grid.Row="1" Grid.ColumnSpan="2" Margin="10" />
-    </StackPanel>
+        Title="MainWindow" Height="450" Width="800" WindowStyle="None">
+    <local:Layout/>
 </Window>
