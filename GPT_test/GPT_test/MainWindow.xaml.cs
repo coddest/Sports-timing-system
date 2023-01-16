@@ -28,26 +28,26 @@ namespace GPT_test
             InitializeComponent();
 
             // Populate the combo box with a list of available serial ports
-            cmbSerialPorts.ItemsSource = SerialPort.GetPortNames();
+            //cmbSerialPorts.ItemsSource = SerialPort.GetPortNames();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            // Get the selected serial port from the combo box
-            string serialPortName = cmbSerialPorts.SelectedItem as string;
+        //private void Button_Click(object sender, RoutedEventArgs e)
+        //{
+        //    Get the selected serial port from the combo box
+        //    string serialPortName = cmbSerialPorts.SelectedItem as string;
 
-            // Open a connection to the serial port
-            serialPort = new SerialPort(serialPortName, 9600);
-            serialPort.Open();
+        //    Open a connection to the serial port
+        //   serialPort = new SerialPort(serialPortName, 9600);
+        //    serialPort.Open();
 
-            // Send a message to the Arduino
-            serialPort.WriteLine("Hello, Arduino!");
+        //    Send a message to the Arduino
+        //    serialPort.WriteLine("Hello, Arduino!");
 
-            // Read the response from the Arduino
-            string response = serialPort.ReadLine();
+        //    Read the response from the Arduino
+        //    string response = serialPort.ReadLine();
 
-            // Display the response in the text box
-            txtResponse.Text = response;
-        }
+        //    Display the response in the text box
+        //    txtResponse.Text = response;
+        //}
     }
 }
