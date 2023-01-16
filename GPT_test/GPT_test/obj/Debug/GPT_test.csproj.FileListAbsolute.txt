@@ -1,0 +1,16 @@
+C:\Users\Gabriel\source\repos\GPT_test\GPT_test\bin\Debug\GPT_test.exe.config
+C:\Users\Gabriel\source\repos\GPT_test\GPT_test\bin\Debug\GPT_test.exe
+C:\Users\Gabriel\source\repos\GPT_test\GPT_test\bin\Debug\GPT_test.pdb
+C:\Users\Gabriel\source\repos\GPT_test\GPT_test\obj\Debug\GPT_test.csproj.AssemblyReference.cache
+C:\Users\Gabriel\source\repos\GPT_test\GPT_test\obj\Debug\GPT_test.csproj.SuggestedBindingRedirects.cache
+C:\Users\Gabriel\source\repos\GPT_test\GPT_test\obj\Debug\MainWindow.g.cs
+C:\Users\Gabriel\source\repos\GPT_test\GPT_test\obj\Debug\App.g.cs
+C:\Users\Gabriel\source\repos\GPT_test\GPT_test\obj\Debug\GPT_test_MarkupCompile.cache
+C:\Users\Gabriel\source\repos\GPT_test\GPT_test\obj\Debug\GPT_test_MarkupCompile.lref
+C:\Users\Gabriel\source\repos\GPT_test\GPT_test\obj\Debug\MainWindow.baml
+C:\Users\Gabriel\source\repos\GPT_test\GPT_test\obj\Debug\GPT_test.g.resources
+C:\Users\Gabriel\source\repos\GPT_test\GPT_test\obj\Debug\GPT_test.Properties.Resources.resources
+C:\Users\Gabriel\source\repos\GPT_test\GPT_test\obj\Debug\GPT_test.csproj.GenerateResource.cache
+C:\Users\Gabriel\source\repos\GPT_test\GPT_test\obj\Debug\GPT_test.csproj.CoreCompileInputs.cache
+C:\Users\Gabriel\source\repos\GPT_test\GPT_test\obj\Debug\GPT_test.exe
+C:\Users\Gabriel\source\repos\GPT_test\GPT_test\obj\Debug\GPT_test.pdb
