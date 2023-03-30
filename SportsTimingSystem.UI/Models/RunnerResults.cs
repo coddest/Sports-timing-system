@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SportsTimingSystem.UI.Models
+﻿namespace SportsTimingSystem.UI.Models
 {
     public class RunnerResults : RunnerData
     {

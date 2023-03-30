@@ -1,12 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SportsTimingSystem.UI.Helpers;
 using SportsTimingSystem.UI.Models;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO.Ports;
+using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using System.Windows.Threading;
 using Wpf.Ui.Common.Interfaces;
 
 namespace SportsTimingSystem.UI.ViewModels
@@ -22,9 +22,7 @@ namespace SportsTimingSystem.UI.ViewModels
         private ObservableCollection<string> _usbPorts;
 
         [ObservableProperty]
-        private string _timer = string.Empty;
-        
-        private DispatcherTimer _dispatcherTimer;
+        private bool _isConnected;
 
         public void OnNavigatedTo()
         {
@@ -39,26 +37,74 @@ namespace SportsTimingSystem.UI.ViewModels
         private void InitializeViewModel()
         {
             Results = new ObservableCollection<RunnerResults> { new RunnerResults { FirstName = "Andrzej", LastName = "Ptak", Country = "Poland", Id = 1, Result = 22, RunnerNumber = 22 } };
-            UsbPorts = new ObservableCollection<string> { "usb1", "usb2" };
+            UsbPorts = new ObservableCollection<string>(ComPorts.GetComPorts());
 
-        _dispatcherTimer = new DispatcherTimer();
-            _dispatcherTimer.Interval = TimeSpan.FromSeconds(1);
-            _dispatcherTimer.Tick += Timer_Tick;
 
+            IsConnected = false;
             _isInitialized = true;
         }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            Timer = DateTime.Now.ToString("HH:mm:ss");
         }
 
 
         [RelayCommand]
         private Task Start()
         {
-            _dispatcherTimer.Start();
+            var serialPortName = UsbPorts.FirstOrDefault(x => x.Contains("Arduino"))?.Substring(0, 4);
+            IsConnected = TestConnection(serialPortName);
             return Task.CompletedTask;
+        }
+
+        static bool TestConnection(string serialPortName)
+        {
+            try
+            {
+                SerialPort ArduinoUSB = new SerialPort(serialPortName, 9600);
+                ArduinoUSB.Open();
+
+                ArduinoUSB.WriteLine("TEST"); // Send the data to the Arduino
+                string answer = ArduinoUSB.ReadLine();
+                answer = ArduinoUSB.ReadLine();
+                ArduinoUSB.Close(); // Close the serial port
+                Console.WriteLine(serialPortName + " said: " + answer);
+
+                if (answer.Equals("TEST"))
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        static void SerialPortMonitor(String SerialPortName, int SerialPortBaudRate)
+        {
+            SerialPort ArduinoUSB = new SerialPort(SerialPortName, SerialPortBaudRate);
+            ArduinoUSB.Open();
+            try
+            {
+                //while (true)
+                //{
+                String answer = ArduinoUSB.ReadLine();
+                answer = ArduinoUSB.ReadLine();
+                Console.WriteLine(answer);
+                Console.WriteLine(answer.Equals("TEST"));
+                Console.WriteLine("TEST");
+                if (answer == "TEST")
+                {
+                    Console.WriteLine("chuj");
+                }
+                //}
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
         }
     }
 }
