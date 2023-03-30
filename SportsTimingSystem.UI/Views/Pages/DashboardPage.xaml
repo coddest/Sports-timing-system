@@ -24,9 +24,9 @@
 
         <StackPanel Grid.Row="0" Orientation="Vertical">
             <ComboBox ItemsSource="{Binding ViewModel.UsbPorts, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:DashboardPage}, Mode=OneWay}" />
-            <TextBlock Text="{Binding ViewModel.Timer, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:DashboardPage}, Mode=OneWay}" />
-            <StackPanel Orientation="Horizontal">
+            <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                 <Button Command="{Binding ViewModel.StartCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:DashboardPage}, Mode=OneWay}">Start</Button>
+                <TextBlock VerticalAlignment="Center" Text="{Binding ViewModel.IsConnected}" />
             </StackPanel>
         </StackPanel>
 
