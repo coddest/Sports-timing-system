@@ -27,6 +27,9 @@ namespace SportsTimingSystem.UI.ViewModels
         [ObservableProperty]
         private bool _isConnected;
 
+        [ObservableProperty]
+        private bool _isArduinoSelected;
+
         public void OnNavigatedTo()
         {
             if (!_isInitialized)
@@ -51,6 +54,10 @@ namespace SportsTimingSystem.UI.ViewModels
         {
         }
 
+        partial void OnSelectedUsbPortChanged(string value)
+        {
+            IsArduinoSelected = SelectedUsbPort.Contains("Arduino");
+        }
 
         [RelayCommand]
         private Task Start()
