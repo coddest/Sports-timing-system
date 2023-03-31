@@ -22,6 +22,9 @@ namespace SportsTimingSystem.UI.ViewModels
         private ObservableCollection<string> _usbPorts;
 
         [ObservableProperty]
+        private string _selectedUsbPort;
+
+        [ObservableProperty]
         private bool _isConnected;
 
         public void OnNavigatedTo()
@@ -52,8 +55,7 @@ namespace SportsTimingSystem.UI.ViewModels
         [RelayCommand]
         private Task Start()
         {
-            var serialPortName = UsbPorts.FirstOrDefault(x => x.Contains("Arduino"))?.Substring(0, 4);
-            IsConnected = TestConnection(serialPortName);
+            IsConnected = TestConnection(SelectedUsbPort.Substring(0,4));
             return Task.CompletedTask;
         }
 
