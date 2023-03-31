@@ -6,6 +6,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.IO.Ports;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Wpf.Ui.Common.Interfaces;
 
@@ -50,10 +51,6 @@ namespace SportsTimingSystem.UI.ViewModels
             _isInitialized = true;
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-        }
-
         partial void OnSelectedUsbPortChanged(string value)
         {
             IsArduinoSelected = SelectedUsbPort.Contains("Arduino");
@@ -71,14 +68,13 @@ namespace SportsTimingSystem.UI.ViewModels
             try
             {
                 SerialPort ArduinoUSB = new SerialPort(SerialPortName);
+                
                 ArduinoUSB.Open();
-
-                ArduinoUSB.WriteLine("TEST");
+                ArduinoUSB.WriteLine("MARCO");
                 String answer = ArduinoUSB.ReadLine().Trim();
                 ArduinoUSB.Close();
-                Console.WriteLine(SerialPortName + " said: " + answer);
 
-                if (answer == "TEST")
+                if (answer == "POLO")
                 {
                     return true;
                 }
