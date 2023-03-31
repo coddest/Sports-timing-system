@@ -57,20 +57,19 @@ namespace SportsTimingSystem.UI.ViewModels
             return Task.CompletedTask;
         }
 
-        static bool TestConnection(string serialPortName)
+        static bool TestConnection(String SerialPortName)
         {
             try
             {
-                SerialPort ArduinoUSB = new SerialPort(serialPortName, 9600);
+                SerialPort ArduinoUSB = new SerialPort(SerialPortName);
                 ArduinoUSB.Open();
 
-                ArduinoUSB.WriteLine("TEST"); // Send the data to the Arduino
-                string answer = ArduinoUSB.ReadLine();
-                answer = ArduinoUSB.ReadLine();
-                ArduinoUSB.Close(); // Close the serial port
-                Console.WriteLine(serialPortName + " said: " + answer);
+                ArduinoUSB.WriteLine("TEST");
+                String answer = ArduinoUSB.ReadLine().Trim();
+                ArduinoUSB.Close();
+                Console.WriteLine(SerialPortName + " said: " + answer);
 
-                if (answer.Equals("TEST"))
+                if (answer == "TEST")
                 {
                     return true;
                 }
@@ -79,31 +78,6 @@ namespace SportsTimingSystem.UI.ViewModels
             catch (Exception)
             {
                 return false;
-            }
-        }
-
-        static void SerialPortMonitor(String SerialPortName, int SerialPortBaudRate)
-        {
-            SerialPort ArduinoUSB = new SerialPort(SerialPortName, SerialPortBaudRate);
-            ArduinoUSB.Open();
-            try
-            {
-                //while (true)
-                //{
-                String answer = ArduinoUSB.ReadLine();
-                answer = ArduinoUSB.ReadLine();
-                Console.WriteLine(answer);
-                Console.WriteLine(answer.Equals("TEST"));
-                Console.WriteLine("TEST");
-                if (answer == "TEST")
-                {
-                    Console.WriteLine("chuj");
-                }
-                //}
-            }
-            catch (Exception)
-            {
-                // ignored
             }
         }
     }
