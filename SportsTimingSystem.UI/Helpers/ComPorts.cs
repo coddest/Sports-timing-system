@@ -14,19 +14,15 @@ namespace SportsTimingSystem.UI.Helpers
 
             List<string> ports = SerialPort.GetPortNames().ToList();
 
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher($"SELECT * FROM Win32_SerialPort");
+            ManagementObjectCollection collection = searcher.Get();
+
             for (int i = 0; i < ports.Count; i++)
             {
-                ManagementObjectSearcher searcher = new ManagementObjectSearcher($"SELECT * FROM Win32_SerialPort WHERE DeviceID='{ports[i]}'");
-                ManagementObjectCollection collection = searcher.Get();
-
-                var sb = new StringBuilder();
-
                 foreach (var obj in collection)
                 {
-                    sb.Append($"{ports[i]} {obj["Caption"]}");
+                    ports[i] = $"{ports[i]} {obj["Caption"]}";
                 }
-
-                ports[i] = sb.ToString();
             }
 
             return ports;
