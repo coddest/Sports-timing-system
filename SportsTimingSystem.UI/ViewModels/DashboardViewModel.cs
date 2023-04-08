@@ -1,10 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Win32;
 using NPOI.OpenXmlFormats.Dml;
 using SportsTimingSystem.UI.Helpers;
 using SportsTimingSystem.UI.Models;
 using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Threading;
@@ -32,6 +34,9 @@ namespace SportsTimingSystem.UI.ViewModels
         [ObservableProperty]
         private bool _isArduinoSelected;
 
+        [ObservableProperty]
+        private string _filePath;
+
         public void OnNavigatedTo()
         {
             if (!_isInitialized)
@@ -44,7 +49,6 @@ namespace SportsTimingSystem.UI.ViewModels
 
         private void InitializeViewModel()
         {
-            Results = new ObservableCollection<RunnerData>(ExcelManager.Map(@"C:\Users\userName\Desktop\data.xlsx"));
             UsbPorts = new ObservableCollection<string>(ComPorts.GetComPorts());
 
 
@@ -57,12 +61,40 @@ namespace SportsTimingSystem.UI.ViewModels
             IsArduinoSelected = SelectedUsbPort.Contains("Arduino");
         }
 
+        partial void OnFilePathChanged(string value)
+        {
+            Results = new ObservableCollection<RunnerData>(ExcelManager.Map(FilePath));
+        }
+
         [RelayCommand]
         private Task Start()
         {
-            ExcelManager.Save(@"C:\Users\userName\Desktop\data2.xlsx", Results.ToList());
-
             IsConnected = TestConnection(SelectedUsbPort.Substring(0,4));
+            return Task.CompletedTask;
+        }
+
+        [RelayCommand]
+        private Task ImportDataFromExcelFile()
+        {
+            var openFileDialog = new OpenFileDialog();
+
+            if (openFileDialog.ShowDialog() is true)
+            {
+                FilePath = openFileDialog.FileName;
+            }
+
+            return Task.CompletedTask;
+        }
+
+        [RelayCommand]
+        private Task ExportDataToExcelFile()
+        {
+            if (FilePath is not null)
+            {
+                var directoryPath = Path.GetDirectoryName(FilePath);
+                ExcelManager.Save(directoryPath + "/exportedData.xlsx", Results.ToList());
+            }
+
             return Task.CompletedTask;
         }
 

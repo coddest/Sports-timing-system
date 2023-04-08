@@ -27,6 +27,8 @@
             <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                 <Button Command="{Binding ViewModel.StartCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:DashboardPage}, Mode=OneWay}" IsEnabled="{Binding ViewModel.IsArduinoSelected}">Start</Button>
                 <TextBlock VerticalAlignment="Center" Text="{Binding ViewModel.IsConnected}" />
+                <Button Command="{Binding ViewModel.ImportDataFromExcelFileCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:DashboardPage}, Mode=OneWay}">Import</Button>
+                <Button Command="{Binding ViewModel.ExportDataToExcelFileCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:DashboardPage}, Mode=OneWay}">Export</Button>
             </StackPanel>
         </StackPanel>
 
@@ -42,7 +44,7 @@
                 <DataGridTextColumn Binding="{Binding Club}" Header="Klub" />
                 <DataGridTextColumn Binding="{Binding FirstRun}" Header="Bieg 1" />
                 <DataGridTextColumn Binding="{Binding SecondRun}" Header="Bieg 2" />
-                <DataGridTextColumn Binding="{Binding Duration, StringFormat='mm:ss.fff'}" Header="Czas" />
+                <DataGridTextColumn Binding="{Binding Duration, StringFormat='mm:ss.ff'}" Header="Czas" />
                 <DataGridTextColumn Binding="{Binding TimeLoss}" Header="Strata" />
             </DataGrid.Columns>
         </ui:DataGrid>

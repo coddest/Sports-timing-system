@@ -20,6 +20,7 @@ namespace SportsTimingSystem.UI.Models
         [Column("Bieg 2")]
         public double SecondRun { get; set; }
         [Column("Czas")]
+        [DataFormat("mm:ss.00")]
         public DateTime Duration { get; set; }
         [Column("Strata")]
         public double TimeLoss { get; set; }
