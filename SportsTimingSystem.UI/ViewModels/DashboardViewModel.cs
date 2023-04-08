@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using NPOI.OpenXmlFormats.Dml;
 using SportsTimingSystem.UI.Helpers;
 using SportsTimingSystem.UI.Models;
 using System;
@@ -17,7 +18,7 @@ namespace SportsTimingSystem.UI.ViewModels
         private bool _isInitialized = false;
 
         [ObservableProperty]
-        private ObservableCollection<RunnerResults> _results;
+        private ObservableCollection<RunnerData> _results;
 
         [ObservableProperty]
         private ObservableCollection<string> _usbPorts;
@@ -43,7 +44,7 @@ namespace SportsTimingSystem.UI.ViewModels
 
         private void InitializeViewModel()
         {
-            Results = new ObservableCollection<RunnerResults> { new RunnerResults { FirstName = "Andrzej", LastName = "Ptak", Country = "Poland", Id = 1, Result = 22, RunnerNumber = 22 } };
+            Results = new ObservableCollection<RunnerData>(ExcelManager.Map(@"C:\Users\userName\Desktop\data.xlsx"));
             UsbPorts = new ObservableCollection<string>(ComPorts.GetComPorts());
 
 
@@ -59,6 +60,8 @@ namespace SportsTimingSystem.UI.ViewModels
         [RelayCommand]
         private Task Start()
         {
+            ExcelManager.Save(@"C:\Users\userName\Desktop\data2.xlsx", Results.ToList());
+
             IsConnected = TestConnection(SelectedUsbPort.Substring(0,4));
             return Task.CompletedTask;
         }

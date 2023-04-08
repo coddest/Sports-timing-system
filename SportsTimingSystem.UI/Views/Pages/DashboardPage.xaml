@@ -30,9 +30,21 @@
             </StackPanel>
         </StackPanel>
 
-        <DataGrid
+        <ui:DataGrid
             Grid.Row="1"
             Margin="0,20,0,0"
-            ItemsSource="{Binding ViewModel.Results, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:DashboardPage}, Mode=TwoWay}" />
+            AutoGenerateColumns="False"
+            ItemsSource="{Binding ViewModel.Results, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:DashboardPage}, Mode=TwoWay}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Position}" Header="Poz." />
+                <DataGridTextColumn Binding="{Binding RunnerNumber}" Header="Nr." />
+                <DataGridTextColumn Binding="{Binding FullName}" Header="Nazwisko i Imię" />
+                <DataGridTextColumn Binding="{Binding Club}" Header="Klub" />
+                <DataGridTextColumn Binding="{Binding FirstRun}" Header="Bieg 1" />
+                <DataGridTextColumn Binding="{Binding SecondRun}" Header="Bieg 2" />
+                <DataGridTextColumn Binding="{Binding Duration, StringFormat='mm:ss.fff'}" Header="Czas" />
+                <DataGridTextColumn Binding="{Binding TimeLoss}" Header="Strata" />
+            </DataGrid.Columns>
+        </ui:DataGrid>
     </Grid>
 </ui:UiPage>
