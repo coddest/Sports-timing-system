@@ -24,10 +24,10 @@
             Margin="0,24,0,0"
             FontSize="20"
             FontWeight="Medium"
-            Text="Select Arduino Port" />
+            Text="Wybierz port z Arduino" />
         <Grid Margin="10">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10*" />
+                <ColumnDefinition Width="8*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <ComboBox ItemsSource="{Binding ViewModel.UsbPorts, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:DashboardPage}, Mode=OneWay}" SelectedItem="{Binding ViewModel.SelectedUsbPort, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:DashboardPage}, Mode=TwoWay}" />
@@ -35,8 +35,29 @@
                 Grid.Column="1"
                 Margin="5,0,0,0"
                 VerticalAlignment="Center">
-                Save
+                Połącz
             </Button>
         </Grid>
+
+        <!--  Settings for Theme color  -->
+        <TextBlock
+            Margin="0,15,0,0"
+            FontSize="20"
+            FontWeight="Medium"
+            Text="Motyw aplikacji" />
+        <RadioButton
+            Margin="0,12,0,0"
+            Command="{Binding ViewModel.ChangeThemeCommand, Mode=OneWay}"
+            CommandParameter="theme_light"
+            Content="Jasny"
+            GroupName="themeSelect"
+            IsChecked="{Binding ViewModel.CurrentTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Light, Mode=OneWay}" />
+        <RadioButton
+            Margin="0,8,0,0"
+            Command="{Binding ViewModel.ChangeThemeCommand, Mode=OneWay}"
+            CommandParameter="theme_dark"
+            Content="Ciemny"
+            GroupName="themeSelect"
+            IsChecked="{Binding ViewModel.CurrentTheme, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Dark, Mode=OneWay}" />
     </StackPanel>
 </ui:UiPage>

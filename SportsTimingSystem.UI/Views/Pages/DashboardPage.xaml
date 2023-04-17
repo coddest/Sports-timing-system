@@ -24,7 +24,10 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                <StackPanel
+                    Margin="0,10,0,0"
+                    VerticalAlignment="Bottom"
+                    Orientation="Horizontal">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock VerticalAlignment="Center">Nr. zawodnika</TextBlock>
                         <TextBox MinWidth="100" Margin="10,0,0,0" />
@@ -37,6 +40,7 @@
                 <StackPanel
                     Grid.Column="1"
                     HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
                     Orientation="Horizontal">
                     <Button>Zapisz</Button>
                     <Button Margin="5,0,0,0">dsq</Button>
