@@ -17,36 +17,53 @@
     mc:Ignorable="d">
 
     <Grid VerticalAlignment="Top">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="2*" />
-            <RowDefinition Height="10*" />
-        </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Vertical">
-            <ComboBox ItemsSource="{Binding ViewModel.UsbPorts, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:DashboardPage}, Mode=OneWay}" SelectedItem="{Binding ViewModel.SelectedUsbPort, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:DashboardPage}, Mode=TwoWay}" />
-            <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
-                <Button Command="{Binding ViewModel.StartCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:DashboardPage}, Mode=OneWay}" IsEnabled="{Binding ViewModel.IsArduinoSelected}">Start</Button>
-                <TextBlock VerticalAlignment="Center" Text="{Binding ViewModel.IsConnected}" />
-                <Button Command="{Binding ViewModel.ImportDataFromExcelFileCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:DashboardPage}, Mode=OneWay}">Import</Button>
-                <Button Command="{Binding ViewModel.ExportDataToExcelFileCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:DashboardPage}, Mode=OneWay}">Export</Button>
+        <StackPanel Margin="10,0,10,0" Orientation="Vertical">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock VerticalAlignment="Center">Nr. zawodnika</TextBlock>
+                        <TextBox MinWidth="100" Margin="10,0,0,0" />
+                    </StackPanel>
+                    <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
+                        <TextBlock VerticalAlignment="Center">Czas</TextBlock>
+                        <TextBox MinWidth="100" Margin="10,0,0,0" />
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+                    <Button>Zapisz</Button>
+                    <Button>dsg</Button>
+                    <Button>dnf</Button>
+                    <Button>dns</Button>
+                </StackPanel>
+            </Grid>
+
+            <StackPanel Margin="0,10,10,0" Orientation="Vertical">
+                <TextBlock FontSize="17">Excel</TextBlock>
+                <ui:DataGrid
+                    Grid.Row="1"
+                    Margin="0,5,0,0"
+                    AutoGenerateColumns="False"
+                    ItemsSource="{Binding ViewModel.Results, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:DashboardPage}, Mode=TwoWay}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Position}" Header="Poz." />
+                        <DataGridTextColumn Binding="{Binding RunnerNumber}" Header="Nr." />
+                        <DataGridTextColumn Binding="{Binding FullName}" Header="Nazwisko i Imię" />
+                        <DataGridTextColumn Binding="{Binding Club}" Header="Klub" />
+                        <DataGridTextColumn Binding="{Binding FirstRun}" Header="Bieg 1" />
+                        <DataGridTextColumn Binding="{Binding SecondRun}" Header="Bieg 2" />
+                        <DataGridTextColumn Binding="{Binding Duration, StringFormat='mm:ss.ff'}" Header="Czas" />
+                        <DataGridTextColumn Binding="{Binding TimeLoss}" Header="Strata" />
+                    </DataGrid.Columns>
+                </ui:DataGrid>
             </StackPanel>
         </StackPanel>
-
-        <ui:DataGrid
-            Grid.Row="1"
-            Margin="0,20,0,0"
-            AutoGenerateColumns="False"
-            ItemsSource="{Binding ViewModel.Results, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:DashboardPage}, Mode=TwoWay}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Position}" Header="Poz." />
-                <DataGridTextColumn Binding="{Binding RunnerNumber}" Header="Nr." />
-                <DataGridTextColumn Binding="{Binding FullName}" Header="Nazwisko i Imię" />
-                <DataGridTextColumn Binding="{Binding Club}" Header="Klub" />
-                <DataGridTextColumn Binding="{Binding FirstRun}" Header="Bieg 1" />
-                <DataGridTextColumn Binding="{Binding SecondRun}" Header="Bieg 2" />
-                <DataGridTextColumn Binding="{Binding Duration, StringFormat='mm:ss.ff'}" Header="Czas" />
-                <DataGridTextColumn Binding="{Binding TimeLoss}" Header="Strata" />
-            </DataGrid.Columns>
-        </ui:DataGrid>
     </Grid>
 </ui:UiPage>
