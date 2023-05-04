@@ -51,6 +51,12 @@
                     <Button Margin="5,0,0,0">dsq</Button>
                     <Button Margin="5,0,0,0">dnf</Button>
                     <Button Margin="5,0,0,0">dns</Button>
+                    <Button
+                        Margin="5,0,0,0"
+                        Command="{Binding ViewModel.ExportDataToExcelFileCommand}"
+                        Visibility="{Binding ViewModel.IsFileImported, Converter={StaticResource EnumToStringConverter}, ConverterParameter=False}">
+                        Export
+                    </Button>
                 </StackPanel>
             </Grid>
 

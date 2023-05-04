@@ -12,7 +12,16 @@ namespace SportsTimingSystem.UI.Helpers
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            string response = (bool)value ? "Hidden" : "Visible";
+            string response = string.Empty;
+
+            if (parameter is not null)
+            {
+                response = (bool)value ? "Visible" : "Hidden";
+            }
+            else
+            {
+                response = (bool)value ? "Hidden" : "Visible";
+            }
             return response;
         }
 
