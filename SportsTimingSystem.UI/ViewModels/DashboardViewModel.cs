@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Win32;
-using NPOI.OpenXmlFormats.Dml;
 using SportsTimingSystem.UI.Helpers;
 using SportsTimingSystem.UI.Models;
 using System;
@@ -9,7 +8,6 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Wpf.Ui.Common.Interfaces;
 
@@ -33,6 +31,9 @@ namespace SportsTimingSystem.UI.ViewModels
 
         [ObservableProperty]
         private bool _isArduinoSelected;
+
+        [ObservableProperty]
+        private bool _isFileImported;
 
         [ObservableProperty]
         private string _filePath;
@@ -66,10 +67,15 @@ namespace SportsTimingSystem.UI.ViewModels
             Results = new ObservableCollection<RunnerData>(ExcelManager.Map(FilePath));
         }
 
+        partial void OnResultsChanged(ObservableCollection<RunnerData> value)
+        {
+            IsFileImported = true;
+        }
+
         [RelayCommand]
         private Task Start()
         {
-            IsConnected = TestConnection(SelectedUsbPort.Substring(0,4));
+            IsConnected = TestConnection(SelectedUsbPort.Substring(0, 4));
             return Task.CompletedTask;
         }
 
@@ -103,7 +109,7 @@ namespace SportsTimingSystem.UI.ViewModels
             try
             {
                 SerialPort ArduinoUSB = new SerialPort(SerialPortName);
-                
+
                 ArduinoUSB.Open();
                 ArduinoUSB.WriteLine("MARCO");
                 String answer = ArduinoUSB.ReadLine().Trim();
@@ -120,5 +126,6 @@ namespace SportsTimingSystem.UI.ViewModels
                 return false;
             }
         }
+
     }
 }

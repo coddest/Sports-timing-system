@@ -1,4 +1,7 @@
-﻿using Wpf.Ui.Common.Interfaces;
+﻿using SportsTimingSystem.UI.ViewModels;
+using System.IO;
+using System.Windows;
+using Wpf.Ui.Common.Interfaces;
 
 namespace SportsTimingSystem.UI.Views.Pages
 {
@@ -17,6 +20,19 @@ namespace SportsTimingSystem.UI.Views.Pages
             ViewModel = viewModel;
 
             InitializeComponent();
+        }
+
+        private void DropExcel(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+            foreach (string file in files)
+            {
+                if (Path.GetExtension(file) == ".xlsx")
+                {
+                   ViewModel.FilePath = file;
+                }
+            }
         }
     }
 }
