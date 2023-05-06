@@ -21,18 +21,13 @@
         <converters:EnumToStringConverter x:Key="EnumToStringConverter" />
     </Page.Resources>
 
-    <Grid VerticalAlignment="Top">
-
-        <StackPanel Margin="10,0,10,0" Orientation="Vertical">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <StackPanel
-                    Margin="0,10,0,0"
-                    VerticalAlignment="Bottom"
-                    Orientation="Horizontal">
+    <Grid>
+        <DockPanel>
+            <Grid
+                Grid.Row="0"
+                Margin="10,0,10,0"
+                DockPanel.Dock="Top">
+                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock VerticalAlignment="Center">Nr. zawodnika</TextBlock>
                         <TextBox MinWidth="100" Margin="10,0,0,0" />
@@ -60,71 +55,72 @@
                 </StackPanel>
             </Grid>
 
-            <StackPanel Margin="0,10,0,0" Orientation="Vertical">
-                <TextBlock FontSize="17">Excel</TextBlock>
-                <ui:DataGrid
-                    Grid.Row="1"
-                    Margin="0,5,0,0"
-                    AutoGenerateColumns="False"
-                    ItemsSource="{Binding ViewModel.Results, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:DashboardPage}, Mode=TwoWay}">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn
-                            MinWidth="45"
-                            Binding="{Binding Position}"
-                            Header="Poz." />
-                        <DataGridTextColumn
-                            MinWidth="45"
-                            Binding="{Binding RunnerNumber}"
-                            Header="Nr." />
-                        <DataGridTextColumn
-                            MinWidth="200"
-                            Binding="{Binding FullName}"
-                            Header="Nazwisko i Imię" />
-                        <DataGridTextColumn
-                            MinWidth="80"
-                            Binding="{Binding Club}"
-                            Header="Klub" />
-                        <DataGridTextColumn
-                            MinWidth="70"
-                            Binding="{Binding FirstRun}"
-                            Header="Bieg 1" />
-                        <DataGridTextColumn
-                            MinWidth="70"
-                            Binding="{Binding SecondRun}"
-                            Header="Bieg 2" />
-                        <DataGridTextColumn
-                            MinWidth="80"
-                            Binding="{Binding Duration, StringFormat='mm:ss.ff'}"
-                            Header="Czas" />
-                        <DataGridTextColumn
-                            MinWidth="80"
-                            Binding="{Binding TimeLoss}"
-                            Header="Strata" />
-                    </DataGrid.Columns>
-                </ui:DataGrid>
-            </StackPanel>
-
-            <Grid
-                Width="700"
-                Height="350"
-                Margin="0,10,0,0"
-                AllowDrop="True"
-                Background="Teal"
-                Drop="DropExcel"
-                Visibility="{Binding ViewModel.IsFileImported, Converter={StaticResource EnumToStringConverter}}">
+            <Grid>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <Button
-                    Grid.Row="0"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch"
-                    Command="{Binding ViewModel.ImportDataFromExcelFileCommand}"
-                    FontWeight="Bold">
-                    Import Excel
-                </Button>
+                <TextBlock FontSize="17">Excel</TextBlock>
+                <Grid Grid.Row="1">
+                    <ui:DataGrid
+                        Height="{Binding ElementName=gridResultsContainer, Path=ActualHeight}"
+                        Margin="0,5,0,0"
+                        AutoGenerateColumns="False"
+                        ItemsSource="{Binding ViewModel.Results, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:DashboardPage}, Mode=TwoWay}"
+                        ScrollViewer.CanContentScroll="True"
+                        ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn
+                                MinWidth="45"
+                                Binding="{Binding Position}"
+                                Header="Poz." />
+                            <DataGridTextColumn
+                                MinWidth="45"
+                                Binding="{Binding RunnerNumber}"
+                                Header="Nr." />
+                            <DataGridTextColumn
+                                MinWidth="200"
+                                Binding="{Binding FullName}"
+                                Header="Nazwisko i Imię" />
+                            <DataGridTextColumn
+                                MinWidth="80"
+                                Binding="{Binding Club}"
+                                Header="Klub" />
+                            <DataGridTextColumn
+                                MinWidth="70"
+                                Binding="{Binding FirstRun}"
+                                Header="Bieg 1" />
+                            <DataGridTextColumn
+                                MinWidth="70"
+                                Binding="{Binding SecondRun}"
+                                Header="Bieg 2" />
+                            <DataGridTextColumn
+                                MinWidth="80"
+                                Binding="{Binding Duration, StringFormat='mm:ss.ff'}"
+                                Header="Czas" />
+                            <DataGridTextColumn
+                                MinWidth="80"
+                                Binding="{Binding TimeLoss}"
+                                Header="Strata" />
+                        </DataGrid.Columns>
+                    </ui:DataGrid>
+                    <Button
+                        Grid.Row="1"
+                        Margin="0,5,0,0"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        AllowDrop="True"
+                        Background="#183446"
+                        Command="{Binding ViewModel.ImportDataFromExcelFileCommand}"
+                        Drop="DropExcel"
+                        FontWeight="Bold"
+                        Visibility="{Binding ViewModel.IsFileImported, Converter={StaticResource EnumToStringConverter}}">
+                        Import Excel
+                    </Button>
+                </Grid>
             </Grid>
-        </StackPanel>
+        </DockPanel>
     </Grid>
 </ui:UiPage>
