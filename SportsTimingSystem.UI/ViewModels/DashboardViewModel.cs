@@ -9,6 +9,7 @@ using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Wpf.Ui.Common.Interfaces;
 
 namespace SportsTimingSystem.UI.ViewModels
@@ -103,7 +104,7 @@ namespace SportsTimingSystem.UI.ViewModels
         [RelayCommand]
         private Task ImportDataFromExcelFile()
         {
-            var openFileDialog = new OpenFileDialog();
+            var openFileDialog = new Microsoft.Win32.OpenFileDialog();
 
             if (openFileDialog.ShowDialog() is true)
             {
@@ -114,15 +115,39 @@ namespace SportsTimingSystem.UI.ViewModels
         }
 
         [RelayCommand]
-        private Task ExportDataToExcelFile()
+        private async Task ExportDataToExcelFile()
         {
+            var directoryPath = string.Empty;
+
             if (FilePath is not null)
             {
-                var directoryPath = Path.GetDirectoryName(FilePath);
-                ExcelManager.Save(directoryPath + "/exportedData.xlsx", Results.ToList());
+                directoryPath = Path.GetDirectoryName(FilePath);
+            }
+            else
+            {
+                directoryPath = await ChooseDirectory();
+
+                if(string.IsNullOrEmpty(directoryPath))
+                {
+                    throw new Exception("No directory selected");
+                }
             }
 
-            return Task.CompletedTask;
+            ExcelManager.Save(directoryPath + "/exportedData.xlsx", Results.ToList());
+        }
+
+        private Task<string> ChooseDirectory()
+        {
+            var dialog = new FolderBrowserDialog();
+            dialog.SelectedPath = @"C:\";
+            DialogResult result = dialog.ShowDialog();
+
+            if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(dialog.SelectedPath))
+            {
+                return Task.FromResult(dialog.SelectedPath + "\\");
+            }
+
+            return Task.FromResult(string.Empty);
         }
 
     }
