@@ -19,6 +19,77 @@
 
     <Page.Resources>
         <converters:EnumToStringConverter x:Key="EnumToStringConverter" />
+
+        <ControlTemplate x:Key="dragAndDropStyle" TargetType="Button">
+            <Border Name="RootElement">
+                <Grid>
+                    <Grid.Background>
+                        <SolidColorBrush x:Name="ButtonBackground" Color="#183446" />
+                    </Grid.Background>
+                    <ContentPresenter
+                        Margin="4,5,4,4"
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                </Grid>
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="MouseOver">
+                            <Storyboard>
+                                <ColorAnimation
+                                    Storyboard.TargetName="ButtonBackground"
+                                    Storyboard.TargetProperty="Color"
+                                    To="Teal" />
+                            </Storyboard>
+                        </VisualState>
+                        <VisualState x:Name="DragEnter">
+                            <Storyboard>
+                                <ColorAnimation
+                                    Storyboard.TargetName="ButtonBackground"
+                                    Storyboard.TargetProperty="Color"
+                                    To="Teal" />
+                            </Storyboard>
+                        </VisualState>
+                        <VisualState x:Name="Pressed">
+                            <Storyboard>
+                                <ColorAnimation
+                                    Storyboard.TargetName="ButtonBackground"
+                                    Storyboard.TargetProperty="Color"
+                                    To="Teal" />
+                            </Storyboard>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+            </Border>
+
+            <ControlTemplate.Resources>
+                <Storyboard x:Key="dragFileOver" TargetProperty="Opacity">
+                    <ColorAnimation
+                        Storyboard.TargetName="ButtonBackground"
+                        Storyboard.TargetProperty="Color"
+                        To="Teal" />
+                </Storyboard>
+
+                <Storyboard x:Key="dragFileLeave" TargetProperty="Opacity">
+                    <ColorAnimation
+                        Storyboard.TargetName="ButtonBackground"
+                        Storyboard.TargetProperty="Color"
+                        To="#183446" />
+                </Storyboard>
+            </ControlTemplate.Resources>
+
+            <ControlTemplate.Triggers>
+
+                <EventTrigger RoutedEvent="DragOver">
+                    <BeginStoryboard Storyboard="{StaticResource dragFileOver}" />
+                </EventTrigger>
+
+                <EventTrigger RoutedEvent="DragLeave">
+                    <BeginStoryboard Storyboard="{StaticResource dragFileLeave}" />
+                </EventTrigger>
+
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
     </Page.Resources>
 
     <Grid>
@@ -112,10 +183,10 @@
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
                         AllowDrop="True"
-                        Background="#183446"
                         Command="{Binding ViewModel.ImportDataFromExcelFileCommand}"
                         Drop="DropExcel"
                         FontWeight="Bold"
+                        Template="{StaticResource dragAndDropStyle}"
                         Visibility="{Binding ViewModel.IsFileImported, Converter={StaticResource EnumToStringConverter}}">
                         Import Excel
                     </Button>
