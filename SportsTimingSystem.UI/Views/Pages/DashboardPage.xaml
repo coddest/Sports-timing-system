@@ -19,6 +19,7 @@
 
     <Page.Resources>
         <converters:EnumToStringConverter x:Key="EnumToStringConverter" />
+        <converters:StringToDateTimeConverter x:Key="StringToDateTimeConverter" />
 
         <ControlTemplate x:Key="dragAndDropStyle" TargetType="Button">
             <Border Name="RootElement">
@@ -101,11 +102,18 @@
                 <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock VerticalAlignment="Center">Nr. zawodnika</TextBlock>
-                        <TextBox MinWidth="100" Margin="10,0,0,0" />
+                        <ui:NumberBox
+                            MinWidth="100"
+                            Margin="10,0,0,0"
+                            DecimalPlaces="0"
+                            Text="{Binding ViewModel.TempRunner.RunnerNumber, Mode=TwoWay}" />
                     </StackPanel>
                     <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
                         <TextBlock VerticalAlignment="Center">Czas</TextBlock>
-                        <TextBox MinWidth="100" Margin="10,0,0,0" />
+                        <TextBox
+                            MinWidth="100"
+                            Margin="10,0,0,0"
+                            Text="{Binding ViewModel.TempRunner.Duration, Converter={StaticResource StringToDateTimeConverter}, StringFormat='mm:ss.ff', Mode=TwoWay}" />
                     </StackPanel>
                 </StackPanel>
                 <StackPanel
@@ -113,7 +121,7 @@
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
                     Orientation="Horizontal">
-                    <Button>Zapisz</Button>
+                    <Button Command="{Binding ViewModel.SaveNewParticipantDataCommand}">Zapisz</Button>
                     <Button Margin="5,0,0,0">dsq</Button>
                     <Button Margin="5,0,0,0">dnf</Button>
                     <Button Margin="5,0,0,0">dns</Button>
@@ -169,7 +177,7 @@
                                 Header="Bieg 2" />
                             <DataGridTextColumn
                                 MinWidth="80"
-                                Binding="{Binding Duration, StringFormat='mm:ss.ff'}"
+                                Binding="{Binding Duration, Converter={StaticResource StringToDateTimeConverter}, StringFormat='mm:ss.ff'}"
                                 Header="Czas" />
                             <DataGridTextColumn
                                 MinWidth="80"

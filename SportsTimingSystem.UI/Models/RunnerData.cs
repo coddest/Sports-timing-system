@@ -1,9 +1,10 @@
-﻿using Ganss.Excel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Ganss.Excel;
 using System;
 
 namespace SportsTimingSystem.UI.Models
 {
-    public class RunnerData
+    public class RunnerData : ObservableObject
     {
         public int Id { get; set; }
 

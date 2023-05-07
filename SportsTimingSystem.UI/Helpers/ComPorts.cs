@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
 using System.Management;
@@ -29,6 +30,29 @@ namespace SportsTimingSystem.UI.Helpers
             }
 
             return ports;
+        }
+
+        public static bool TestConnection(String SerialPortName)
+        {
+            try
+            {
+                SerialPort ArduinoUSB = new SerialPort(SerialPortName);
+
+                ArduinoUSB.Open();
+                ArduinoUSB.WriteLine("MARCO");
+                String answer = ArduinoUSB.ReadLine().Trim();
+                ArduinoUSB.Close();
+
+                if (answer == "POLO")
+                {
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

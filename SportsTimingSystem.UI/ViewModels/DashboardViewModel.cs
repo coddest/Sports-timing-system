@@ -38,6 +38,9 @@ namespace SportsTimingSystem.UI.ViewModels
         [ObservableProperty]
         private string _filePath;
 
+        [ObservableProperty]
+        private RunnerData _tempRunner;
+
         public void OnNavigatedTo()
         {
             if (!_isInitialized)
@@ -46,12 +49,13 @@ namespace SportsTimingSystem.UI.ViewModels
 
         public void OnNavigatedFrom()
         {
+            // Method intentionally left empty.
         }
 
         private void InitializeViewModel()
         {
             UsbPorts = new ObservableCollection<string>(ComPorts.GetComPorts());
-
+            TempRunner = new RunnerData();
 
             IsConnected = false;
             _isInitialized = true;
@@ -75,7 +79,24 @@ namespace SportsTimingSystem.UI.ViewModels
         [RelayCommand]
         private Task Start()
         {
-            IsConnected = TestConnection(SelectedUsbPort.Substring(0, 4));
+            IsConnected = ComPorts.TestConnection(SelectedUsbPort.Substring(0, 4));
+            return Task.CompletedTask;
+        }
+
+        [RelayCommand]
+        private Task SaveNewParticipantData()
+        {
+            if (Results is not null)
+            {
+                Results.Add(TempRunner);
+            }
+            else
+            {
+                Results = new ObservableCollection<RunnerData> { TempRunner };
+            }
+
+            TempRunner = new RunnerData();
+
             return Task.CompletedTask;
         }
 
@@ -102,29 +123,6 @@ namespace SportsTimingSystem.UI.ViewModels
             }
 
             return Task.CompletedTask;
-        }
-
-        static bool TestConnection(String SerialPortName)
-        {
-            try
-            {
-                SerialPort ArduinoUSB = new SerialPort(SerialPortName);
-
-                ArduinoUSB.Open();
-                ArduinoUSB.WriteLine("MARCO");
-                String answer = ArduinoUSB.ReadLine().Trim();
-                ArduinoUSB.Close();
-
-                if (answer == "POLO")
-                {
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
         }
 
     }
