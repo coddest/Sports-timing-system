@@ -5,7 +5,7 @@
 SoftwareSerial HC12(9, 8); // HC-12 TX Pin, HC-12 RX Pin
 
 // initialize the library by associating any needed LCD interface
-LiquidCrystal_I2C lcd(0x27, 20, 4);
+LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 // set up variables:
 long int start_time = 1; // start time of run
