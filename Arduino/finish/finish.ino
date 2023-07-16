@@ -94,6 +94,9 @@ String ms_to_print(long int ms){ // convert milliseconds to string
   if(ms>0){
     if(ms%1000<100){
       result += "0";
+	  if(ms%1000<10){
+        result += "0";
+      }
     }
     result += String(ms%1000);
   }
