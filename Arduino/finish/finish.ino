@@ -71,11 +71,11 @@ void print_ln_lcd(String message, int col, int row, bool clear){ // print messag
   lcd.print(message);
 }
 
-String ms_to_print(long int ms){ // convert milliseconds to string
+String ms_to_print(long ms){ // convert milliseconds to string
   String result = "";
-  int sec = ms/1000;
-  int min = sec/60;
-  int hr = min/60;
+  long sec = ms/1000;
+  long min = sec/60;
+  long hr = min/60;
   if(hr>0){
     result += String(hr)+":";
   }
@@ -85,12 +85,14 @@ String ms_to_print(long int ms){ // convert milliseconds to string
     }
     result += String(min%60)+":";
   }
+  else{result += "00:";}
   if(sec>0){
     if(sec%60<10){
       result += "0";
     }
     result += String(sec%60)+".";
   }
+  else{result += "00.";}
   if(ms>0){
     if(ms%1000<100){
       result += "0";
