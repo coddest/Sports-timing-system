@@ -1,0 +1,205 @@
+﻿<ui:UiPage
+    x:Class="SportsTimingSystem.UI.Views.Pages.DashboardPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:SportsTimingSystem.UI.Helpers"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SportsTimingSystem.UI.Views.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:SportsTimingSystem.UI.Models"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    Title="DashboardPage"
+    d:Background="{DynamicResource ApplicationBackgroundBrush}"
+    d:DataContext="{d:DesignInstance local:DashboardPage,
+                                     IsDesignTimeCreatable=False}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <converters:EnumToStringConverter x:Key="EnumToStringConverter" />
+        <converters:StringToDateTimeConverter x:Key="StringToDateTimeConverter" />
+
+        <ControlTemplate x:Key="dragAndDropStyle" TargetType="Button">
+            <Border Name="RootElement">
+                <Grid>
+                    <Grid.Background>
+                        <SolidColorBrush x:Name="ButtonBackground" Color="#183446" />
+                    </Grid.Background>
+                    <ContentPresenter
+                        Margin="4,5,4,4"
+                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                </Grid>
+                <VisualStateManager.VisualStateGroups>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="MouseOver">
+                            <Storyboard>
+                                <ColorAnimation
+                                    Storyboard.TargetName="ButtonBackground"
+                                    Storyboard.TargetProperty="Color"
+                                    To="Teal" />
+                            </Storyboard>
+                        </VisualState>
+                        <VisualState x:Name="DragEnter">
+                            <Storyboard>
+                                <ColorAnimation
+                                    Storyboard.TargetName="ButtonBackground"
+                                    Storyboard.TargetProperty="Color"
+                                    To="Teal" />
+                            </Storyboard>
+                        </VisualState>
+                        <VisualState x:Name="Pressed">
+                            <Storyboard>
+                                <ColorAnimation
+                                    Storyboard.TargetName="ButtonBackground"
+                                    Storyboard.TargetProperty="Color"
+                                    To="Teal" />
+                            </Storyboard>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateManager.VisualStateGroups>
+            </Border>
+
+            <ControlTemplate.Resources>
+                <Storyboard x:Key="dragFileOver" TargetProperty="Opacity">
+                    <ColorAnimation
+                        Storyboard.TargetName="ButtonBackground"
+                        Storyboard.TargetProperty="Color"
+                        To="Teal" />
+                </Storyboard>
+
+                <Storyboard x:Key="dragFileLeave" TargetProperty="Opacity">
+                    <ColorAnimation
+                        Storyboard.TargetName="ButtonBackground"
+                        Storyboard.TargetProperty="Color"
+                        To="#183446" />
+                </Storyboard>
+            </ControlTemplate.Resources>
+
+            <ControlTemplate.Triggers>
+
+                <EventTrigger RoutedEvent="DragOver">
+                    <BeginStoryboard Storyboard="{StaticResource dragFileOver}" />
+                </EventTrigger>
+
+                <EventTrigger RoutedEvent="DragLeave">
+                    <BeginStoryboard Storyboard="{StaticResource dragFileLeave}" />
+                </EventTrigger>
+
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Page.Resources>
+
+    <Grid>
+        <DockPanel>
+            <Grid
+                Grid.Row="0"
+                Margin="10,0,10,0"
+                DockPanel.Dock="Top">
+                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock VerticalAlignment="Center">Nr. zawodnika</TextBlock>
+                        <ui:NumberBox
+                            MinWidth="100"
+                            Margin="10,0,0,0"
+                            DecimalPlaces="0"
+                            Text="{Binding ViewModel.TempRunner.RunnerNumber, Mode=TwoWay}" />
+                    </StackPanel>
+                    <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
+                        <TextBlock VerticalAlignment="Center">Czas</TextBlock>
+                        <TextBox
+                            MinWidth="100"
+                            Margin="10,0,0,0"
+                            Text="{Binding ViewModel.TempRunner.Duration, Converter={StaticResource StringToDateTimeConverter}, StringFormat='mm:ss.ff', Mode=TwoWay}" />
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Orientation="Horizontal">
+                    <Button Command="{Binding ViewModel.SaveNewParticipantDataCommand}">Zapisz</Button>
+                    <Button Margin="5,0,0,0">dsq</Button>
+                    <Button Margin="5,0,0,0">dnf</Button>
+                    <Button Margin="5,0,0,0">dns</Button>
+                    <Button
+                        Margin="5,0,0,0"
+                        Command="{Binding ViewModel.ExportDataToExcelFileCommand}"
+                        Visibility="{Binding ViewModel.IsFileImported, Converter={StaticResource EnumToStringConverter}, ConverterParameter=False}">
+                        Export
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock FontSize="17">Excel</TextBlock>
+                <Grid Grid.Row="1">
+                    <ui:DataGrid
+                        Height="{Binding ElementName=gridResultsContainer, Path=ActualHeight}"
+                        Margin="0,5,0,0"
+                        AutoGenerateColumns="False"
+                        ItemsSource="{Binding ViewModel.Results, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:DashboardPage}, Mode=TwoWay}"
+                        ScrollViewer.CanContentScroll="True"
+                        ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn
+                                MinWidth="45"
+                                Binding="{Binding Position}"
+                                Header="Poz." />
+                            <DataGridTextColumn
+                                MinWidth="45"
+                                Binding="{Binding RunnerNumber}"
+                                Header="Nr." />
+                            <DataGridTextColumn
+                                MinWidth="200"
+                                Binding="{Binding FullName}"
+                                Header="Nazwisko i Imię" />
+                            <DataGridTextColumn
+                                MinWidth="80"
+                                Binding="{Binding Club}"
+                                Header="Klub" />
+                            <DataGridTextColumn
+                                MinWidth="70"
+                                Binding="{Binding FirstRun}"
+                                Header="Bieg 1" />
+                            <DataGridTextColumn
+                                MinWidth="70"
+                                Binding="{Binding SecondRun}"
+                                Header="Bieg 2" />
+                            <DataGridTextColumn
+                                MinWidth="80"
+                                Binding="{Binding Duration, Converter={StaticResource StringToDateTimeConverter}, StringFormat='mm:ss.ff'}"
+                                Header="Czas" />
+                            <DataGridTextColumn
+                                MinWidth="80"
+                                Binding="{Binding TimeLoss}"
+                                Header="Strata" />
+                        </DataGrid.Columns>
+                    </ui:DataGrid>
+                    <Button
+                        Grid.Row="1"
+                        Margin="0,5,0,0"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        AllowDrop="True"
+                        Command="{Binding ViewModel.ImportDataFromExcelFileCommand}"
+                        Drop="DropExcel"
+                        FontWeight="Bold"
+                        Template="{StaticResource dragAndDropStyle}"
+                        Visibility="{Binding ViewModel.IsFileImported, Converter={StaticResource EnumToStringConverter}}">
+                        Import Excel
+                    </Button>
+                </Grid>
+            </Grid>
+        </DockPanel>
+    </Grid>
+</ui:UiPage>
